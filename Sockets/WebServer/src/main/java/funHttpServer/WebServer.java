@@ -196,6 +196,7 @@ class WebServer {
         } else if (request.contains("multiply?")) {
           // This multiplies two numbers, there is NO error handling, so when
           // wrong data is given this just crashes
+          try{
 
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           // extract path parameters
@@ -213,6 +214,13 @@ class WebServer {
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
           builder.append("Result is: " + result);
+          }catch(Exception e){
+              builder.append("HTTP/1.1 400 Bad Request");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("Result is: " + result);
+              
+          }
 
           // TODO: Include error handling here with a correct error code and
           // a response that makes sense
